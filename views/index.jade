@@ -1,0 +1,8 @@
+extends layout
+block content
+    form(action='/',method='post')
+        div(data-role='fieldcontain')
+            label(for='search') Search
+            input(id='search',type='text',value='',placeholder='Search',name='search')
+        div(data-role='fieldcontain')
+            input(type='submit',value='Search',data-transition='fade')
