@@ -26,7 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 
 app.post('/', function (req, res) {
@@ -41,72 +40,23 @@ app.post('/', function (req, res) {
             return;
         }
 
-        // load the body of the page into Cheerio so we can traverse the DOM
         var $ = cheerio.load(body),
             links = $(".r a");
-
         links.each(function (i, link) {
             // get the href attribute of each link
             var headerLink = $(link).text();
             var h = $(link).attr("href");
             // strip out unnecessary junk
             h = h.replace("/url?q=", "").split("&")[0];
-            if (url.charAt(0) === "/") {
-                return;
-            } else {
+            //add only items with links, ignore images etc.
+            if ((headerLink != null && headerLink != "") || h.charAt(0) != "/") {
                 response += '<h3>' + headerLink + '</h3>'
-                response += '<h3>' + h + '</h3>'
+                response += '<a href = ' + h + '>' + h + '</a>'
             }
-            /* words.push({
-             headerLink: headerLink
-             });*/
         });
-        res.send(response)
+      //  res.send(response)
     });
 });
-
-
-/*app.post('/', function (req, res) {
- // Let's scrape Anchorman 2
- //tt1229340/
- googleSearch = req.body.search;
- url = 'http://www.imdb.com/title/' + googleSearch + '/';
-
- request(url, function (error, response, html) {
- if (!error) {
- var $ = cheerio.load(html);
-
- var title, release, rating;
- var json = {title: "", release: "", rating: ""};
-
- $('.title_wrapper').filter(function () {
- var data = $(this);
- title = data.children().first().text().trim();
- release = data.children().last().children().last().text().trim();
-
- json.title = title;
- json.release = release;
- })
-
- $('.ratingValue').filter(function () {
- var data = $(this);
- rating = data.text().trim();
-
- json.rating = rating;
- })
-
- response += '<p>' + json.title + '</p> <br>' + '<p>' + json.release + '</p> <br>' + '<p>' + json.rating + '</p> <br>'
- res.send(response);
- }
-
- /!*   fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
- console.log('File successfully written! - Check your project directory for the output.json file');
- })
- *!/
- // res.send('Check your console!')
- })
- })*/
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
