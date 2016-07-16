@@ -15,7 +15,7 @@ This was created for the following purpose
 You will need the following things properly installed on your computer.
 
 * [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](https://expressjs.com/)
+* [Express](https://expressjs.com/)
 * [Cheerio](https://github.com/cheeriojs/cheerio)
 
 ## Installation
