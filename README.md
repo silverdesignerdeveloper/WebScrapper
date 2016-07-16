@@ -8,8 +8,6 @@ This was created for the following purpose
 * Display the Title , Link and Description.
 * Show a notification Sorry No Results Found For : {N}. If there are zero result found. 
 
-[![Screen Shot][screen_shot]][demo_site]
-
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
