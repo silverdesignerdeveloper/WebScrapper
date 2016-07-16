@@ -1,6 +1,6 @@
 # Google Search Result Scraper
 
-This is a sample application made on Express. 
+This is a sample application is made on ExpressJS. 
 This was created for the following purpose
  
 * A web - application which is basically a web-scraper/crawler
