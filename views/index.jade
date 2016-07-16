@@ -1,4 +1,13 @@
 extends layout
 block content
-    input#search(type="search" , name='search' ,value='' , placeholder="Search")
-    h2#results
+    #loader
+    .container
+        .group
+           input#search(type="search" , name='search',placeholder='Search')
+           span.highlight
+           span.bar
+           #results
+
+
+
+

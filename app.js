@@ -1,7 +1,4 @@
 var express = require('express');
-var fs = require('fs');
-var request = require('request');
-var cheerio = require('cheerio');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -9,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -25,35 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/api', search);
 
-app.get('/searching', function (req, res) {
-    googleSearch = req.query.search;
-    url = "https://www.google.com/search?q=" + googleSearch + "&num=11";
-
-    request(url, function (error, response, body) {
-        if (error) {
-            console.log("Couldn’t get page because of error:" + error);
-            return;
-        }
-
-        var $ = cheerio.load(body);
-        var parentFieldList = $(".g ");
-        var results = [];
-        parentFieldList.each(function (i, parentField) {
-            var header = $(parentField).find($('.r a')).text();
-            var source = $(parentField).find($('cite')).text();
-            var description = $(parentField).find($('.st')).text();
-            if (results.length <= 10 && (header != "" && source != "" && description != "")) {
-                results.push({name: header, source: source, description: description});
-            } else {
-                return;
-            }
-
-        });
-        res.contentType('application/json');
-        res.send(JSON.stringify(results));
-    });
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
