@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -27,12 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
-
-app.post('/', function (req, res) {
-    corpus = {};
-    // Let's scrape Google
-    googleSearch = req.body.search;
-    url = "https://www.google.com/search?q=" + googleSearch;
+app.get('/searching', function (req, res) {
+    googleSearch = req.query.search;
+    url = "https://www.google.com/search?q=" + googleSearch + "&num=11";
 
     request(url, function (error, response, body) {
         if (error) {
@@ -40,21 +36,22 @@ app.post('/', function (req, res) {
             return;
         }
 
-        var $ = cheerio.load(body),
-            links = $(".r a");
-        links.each(function (i, link) {
-            // get the href attribute of each link
-            var headerLink = $(link).text();
-            var h = $(link).attr("href");
-            // strip out unnecessary junk
-            h = h.replace("/url?q=", "").split("&")[0];
-            //add only items with links, ignore images etc.
-            if ((headerLink != null && headerLink != "") || h.charAt(0) != "/") {
-                response += '<h3>' + headerLink + '</h3>'
-                response += '<a href = ' + h + '>' + h + '</a>'
+        var $ = cheerio.load(body);
+        var parentFieldList = $(".g ");
+        var results = [];
+        parentFieldList.each(function (i, parentField) {
+            var header = $(parentField).find($('.r a')).text();
+            var source = $(parentField).find($('cite')).text();
+            var description = $(parentField).find($('.st')).text();
+            if (results.length <= 10 && (header != "" && source != "" && description != "")) {
+                results.push({name: header, source: source, description: description});
+            } else {
+                return;
             }
+
         });
-      //  res.send(response)
+        res.contentType('application/json');
+        res.send(JSON.stringify(results));
     });
 });
 
