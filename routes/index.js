@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
  * */
 router.get('/search', function (req, res) {
     googleSearch = req.query.search;
-    url = "https://www.google.com/search?q=" + googleSearch + "&num=11";
+    url = "https://www.google.com/search?q=" + googleSearch + "&num=15";
     var requestOptions = {encoding: 'binary', method: "GET", uri: url};
 
     request(requestOptions, function (error, response, body) {
