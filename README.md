@@ -8,7 +8,7 @@ This was created for the following purpose
 * Display the Title , Link and Description.
 * Show a notification Sorry No Results Found For : {N}. If there are zero result found. 
 
-[![Screenshot][screenshot]][website_url]
+[![Screenshot][public/images/screenshot.png]][website_crawler]
 
 ## Prerequisites
 
