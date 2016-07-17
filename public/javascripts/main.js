@@ -4,9 +4,8 @@
         console.log('jQuery failed to load');
         return;
     }
-    $(document).ready(function () {
-        $('#loader').hide();
-    })
+    //Initially hide loader
+    $('#loader').hide();
 
     $(function () {
         $('#search').on('keyup', function (e) {
@@ -18,7 +17,7 @@
 
                 var parameters = {search: $(this).val()};
                 //Fetch Data
-                $.get('/api/search', parameters, function (results) {
+                $.get('/search', parameters, function (results) {
                     $('#loader').hide();
                     if (results.length > 0) {
                         $("#results").append("<p> This are the top 10 results found for : <b>" + search.value + "</b></p>");
