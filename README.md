@@ -8,7 +8,7 @@ This was created for the following purpose
 * Display the Title , Link and Description.
 * Show a notification Sorry No Results Found For : {N}. If there are zero result found. 
 
-[![Screenshot][public/images/screenshot.png]][website_crawler]
+[![solarized dualmode](https://github.com/vinzdez/WebScrapper/blob/feature/screenahot/public/images/screenshot.png)](#features)
 
 ## Prerequisites
 
