@@ -22,7 +22,7 @@
                     if (results.length > 0) {
                         $("#results").append("<p> This are the top 10 results found for : <b>" + search.value + "</b></p>");
                         $.each(results, function (idx, data) {
-                            $("#results").append("<div class='card'><h2>" + data.name + "</h2><p>" + data.description + "</p><small><a href=http://" + data.source + ">" + data.source + "</small></div>");
+                            $("#results").append("<div class='card'><h2>" + data.name + "</h2><p>" + data.description + "</p><small><a href=" + data.source + ">" + data.source + "</small></div>");
                         });
                     } else {
                         $("#results").append("<div class='card'><p> Sorry No Results Found For :<b>" + search.value + "</b></p></div>");
